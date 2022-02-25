@@ -1,0 +1,6 @@
+site_name: FlaskAngularRestpages
+pages:
+- Introduction: index.md
+- Rest: api.md
+- Development: dev.md
+theme: journal
