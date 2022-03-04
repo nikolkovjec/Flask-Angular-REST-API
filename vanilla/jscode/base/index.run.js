@@ -3,11 +3,13 @@
 
   angular
     .module('web')
-    .run(runBlock);
+    //.run(runBlock)
+    ;
 
-  /** @ngInject */
+/*
   function runBlock($log) {
     $log.debug('Block inside main');
   }
+*/
 
 })();

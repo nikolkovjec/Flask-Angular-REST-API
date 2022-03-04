@@ -1,6 +1,7 @@
-
 (function() {
 'use strict';
+
+/*
 angular.module('web').config(myconfig);
 
 // Note: change name 'myconfig' to avoid same name in same space
@@ -19,5 +20,6 @@ function myconfig(
             },
         })
 }
+*/
 
 });

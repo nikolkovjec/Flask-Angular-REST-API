@@ -4,6 +4,7 @@
 
   angular
     .module('web')
-    .constant('moment', moment);
+    //.constant('moment', moment)
+    ;
 
 })();

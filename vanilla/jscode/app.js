@@ -3,11 +3,21 @@
 
   angular
     .module('web', [
-        'ngAnimate', 'ngCookies', 'ngSanitize',
-        'restangular',
-        'mgcrea.ngStrap',
-        'ui.router',
-	'satellizer',
+        //'ngAnimate',
+        'ngSanitize',
+    	'satellizer',
+        'ui.router', //'ngRoute',
+//BOOTSTRAP
+        //'mgcrea.ngStrap',
+// THE LOADING BAR
+        //'angular-loading-bar',
+        'cfp.loadingBar',
+/*
+// LAZY LOAD
+        'oc.lazyLoad',
+*/
+
+// OTHERS?
     ]);
 
 })();

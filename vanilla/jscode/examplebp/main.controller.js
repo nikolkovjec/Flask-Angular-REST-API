@@ -8,26 +8,32 @@ angular
     .module('web')
 /********************/
 
+/*
 //////////////////////////////
 .controller('DataController', function($scope, $state) {
-    console.log("TEST DATA")
+    console.log("TEST DATA");
 })
 //////////////////////////////
 .controller('DataIDController', function($scope, $state, $stateParams) {
     $scope.id = $stateParams.id ;
 })
 //////////////////////////////
+*/
 .controller('MainController', MainController);
 
 
-//////////////////////////////
-function MainController($scope, $log, $location, auth) {
+function MainController($scope, $log, $location, $timeout, cfpLoadingBar)
+{
+
+    cfpLoadingBar.start();
+    console.log("TEST before timeout");
+    $timeout(function() {
+        console.log("TEST completed timeout");
+        $scope.some = "Hello world";
+        cfpLoadingBar.complete();
+    }, 2000);
+
 /*
-    $log.debug("Controller");
-    console.log($location);
-    var absUrl = $location.absUrl();
-    $log.debug($location.$$url);
-*/
     $scope.active = false;
     $scope.variab = 'testing';
     $scope.route = {
@@ -116,6 +122,8 @@ function MainController($scope, $log, $location, auth) {
 
     refresh([]);
 
+*/
 
-  }
+}
+
 })();

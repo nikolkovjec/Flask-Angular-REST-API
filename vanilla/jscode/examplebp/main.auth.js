@@ -1,15 +1,16 @@
 (function() {
   'use strict';
-angular.module('web').service('auth', authService)
-.controller('LoginController', LoginController)
 
+angular.module('web')
+//.service('auth', authService)
+.controller('LoginController', LoginController)
 
 .config(function($authProvider) {
 
-        var host = $location.host();
-        var protocol = $location.protocol();
-
-	$authProvider.loginUrl = protocol + "://" + host + "/auth"; 
+	$authProvider.loginUrl =
+        window.location.protocol + "//"
+        + window.location.host
+        + "/auth";
 	$authProvider.tokenName = 'authentication_token';
 
 	$authProvider.oauth1({
@@ -21,32 +22,47 @@ angular.module('web').service('auth', authService)
 		  popupOptions: null
 	});
 
-});
+})
+;
+
 //////////////////////////////
-function LoginController($scope, $log, $auth) {
+function LoginController($scope, $window, $log, $auth) {
 
     $log.debug("Login Controller");
-
-/*
-    var token = "WyIxIiwiODFmMjFhNWVkMTA4MjY0ZDk1ZjJmZDFiZTlhZWVjMDYiXQ.CVgRvg.UQqt6SGH6Hd5nyPaLl1rNYOCCVw" // + "BB"
-
-    auth.authenticatedRequest(token)
-     .then(function logged(some){
-        console.log("Token in storage is:", auth.getToken());
-    });
-*/
+    $log.debug("Actual token is:", $auth.getToken());
 
     $scope.loginfun = function(credentials) {
         $log.debug("Requested with", credentials);
 
-    	$auth.login(credentials).then(function (loginResponse) {
-		console.log(loginResponse);
-		console.log($auth.getToken());
+        $auth.login(credentials).then(function (loginResponse) {
+            console.log(loginResponse);
+            console.log($auth.getToken());
+            // Reload python pages
+            $window.location.reload();
         });
     }
 
+    $scope.logoutfun = function() {
+
+        console.log("Logging out");
+    	$auth.logout().then(function() {
+    		console.log("TEST");
+            //$window.location.reload();
+            console.log($auth.getToken());
+        });
+    }
+
+    // auth.authenticatedRequest(token)
+    //  .then(function logged(some){
+    //     console.log("Token in storage is:", auth.getToken());
+    // });
+
 }
 
+// THE END
+})();
+
+/*
 ///////////////////////////////////////////
 // https://thinkster.io/angularjs-jwt-auth
 ///////////////////////////////////////////
@@ -86,24 +102,5 @@ function authService($window, $http, $log) {
                 return self.saveToken(null);
         });
     }
-
-    self.authenticatedRequest = function(token) {
-        var req = {
-            method: 'GET',
-            url: API_URL + '/checklogged',
-            headers: { "Authentication-Token" : token },
-        }
-
-        return $http(req).then(
-            function successCallback(response) {
-                console.log("OK");
-                console.log(response);
-          }, function errorCallback(response) {
-                $log.warn("Expired or invalid token");
-                //console.log(response);
-                return self.saveToken(null);
-        });
-    }
 }
-
-})();
+*/
