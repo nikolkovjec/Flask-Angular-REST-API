@@ -3,24 +3,46 @@
     ✔ loading bar @done (15-12-23 16:22)
     https://github.com/chieffancypants/angular-loading-bar
     ✔ new branch 'standalone' from master @done (15-12-23 16:25)
-
-  ☐ Angular centric
+  ✔ Angular centric @done (15-12-29 14:29)
     ✔ remove useless modules @done (15-12-23 16:33)
       ✔ from bower too @done (15-12-23 16:33)
     ✔ be carefull with ui-router @done (15-12-23 16:33)
-    ☐ base root /
+    ✔ base root / @done (15-12-29 14:29)
+  ✔ Test login redirect with ui router resolver @done (15-12-29 14:30)
+  https://medium.com/@petehouston/protect-authentication-routes-in-angular-ui-router-and-satellizer-7745257a7e6#.tcuhppb0s
+
+  ☐ Various
+    ✔ login with font awesome loading @done (15-12-30 15:27)
+    ✔ Cycle through ui routes @done (15-12-30 16:39)
+      ✔ logout, search, submit @done (15-12-30 16:39)
+      ✔ topbar buttons controlled by angular inside template @done (15-12-30 17:53)
+    ✔ choose framework based on what's first inside json @done (15-12-31 11:38)
+      ✔ material, bootstrap, foundation @done (15-12-31 11:38)
+    ✔ material welcome @done (15-12-31 12:05)
+      ✔ jinja2 expand of material index @done (15-12-31 12:05)
+    ☐ Fix jinja2 template material
+      ☐ topbar
+      ☐ parallax ng-repeat
+        ☐ based on content and images
+    ☐ What if API down? JS
 
   ☐ Cleaning code
+    ✔ test login @done (15-12-30 09:59)
+    ✔ test logout @done (15-12-30 09:59)
+    ✘ a better reload page for login @cancelled (15-12-30 15:08)
     ☐ move static and templates into vanilla?
+    ☐ probably remove angulask as a separate project
+      ☐ remove it from push pull and boot script
     ✔ create config dir with json (css and js files to load) @done (15-12-28 19:00)
-    ☐ json file for extra-framework file?
-
+    ✘ json file for extra-framework file? @cancelled (15-12-29 15:13)
   ✔ New routes @done (15-12-23 18:50)
    ☐ welcome (low js, only material)
-     ☐ fix welcome title
-     ☐ login button send to app
+     ✔ fix welcome title @done (15-12-29 15:42)
+     ✘ login button send to app @cancelled (15-12-29 15:42)
      ☐ description, features, about/contacts
    ☐ root js app
+     ☐ loginer: save in flask db ip @idea
+        ☐ prompt login if no token found for that ip?
      ☐ nolinks pages
        ☐ login jwttoken and satellizer
        ☐ logout
@@ -29,11 +51,36 @@
        ☐ submission
        ☐ profile and settings
 
-☐ Am i using sanitize?
+JS LIBS:
+  ☐ Am i using sanitize?
+  ☐ controller as
+  https://toddmotto.com/digging-into-angulars-controller-as-syntax/
 
-☐ pull request frameworks branch
+<div ng-controller="MainCtrl as main">
+  {{ main.title }}
+  <div ng-controller="AnotherCtrl as another">
+    Scope title: {{ another.title }}
+    Parent title: {{ main.title }}
+    <div ng-controller="YetAnotherCtrl as yet">
+      Scope title: {{ yet.title }}
+      Parent title: {{ another.title }}
+      Parent parent title: {{ main.title }}
+    </div>
+  </div>
+</div>
 
-  ☐ JWT apis?
+  ☐ controller filters 
+  https://toddmotto.com/use-controller-filters-to-prevent-digest-performance-issues/
+  ✔ foreach implementation @done (15-12-30 16:37)
+  https://toddmotto.com/simple-foreach-implementation-for-objects-nodelists-arrays-with-automatic-type-looping/
+  ☐ image lazy loading
+  https://toddmotto.com/echo-js-simple-javascript-image-lazy-loading/
+  ☐ detect no wifi
+  https://toddmotto.com/nofi-detecting-no-wifi-callbacks-for-offline-states-with-html5/
+  ☐ DOM manipulation
+  https://toddmotto.com/apollo-js-standalone-class-manipulation-api-for-html5-and-legacy-dom/
+
+JWT apis:
   https://thinkster.io/angularjs-jwt-auth
 
   ☐ Material framework
