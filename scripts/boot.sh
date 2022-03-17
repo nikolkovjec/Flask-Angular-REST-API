@@ -1,9 +1,10 @@
 #!/bin/bash
 
 #############################
-com="docker-compose"
-services="backend frontend"
-repos="angulask rest-mock"
+extra="-f docker-compose.yml -f custom.yml"
+com="docker-compose $extra"
+#services="backend frontend"
+services="custombe customfe"
 webbuild="bower"
 
 #############################
@@ -27,15 +28,18 @@ if [ "$1" == "init" ]; then
 elif [ "$1" == "update" ]; then
 
     docker-compose pull
-    # for service in $services;
-    # do
-    #     echo "Repo '$service' push"
-    #     cd $service
-    #     git pull origin master
-    #     cd ..
-    # done
+    current=`pwd`
+    cd ..
+    for service in $services;
+    do
+        echo "Repo '$service' fetch"
+        cd $service
+        git pull origin master
+        cd ..
+    done
     git submodule sync
     git submodule update
+    cd $current
     $bcom
 
 # Bower install
