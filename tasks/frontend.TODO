@@ -1,5 +1,5 @@
 
-Welcome and goodbye. And thanks for all the fish!
+> Welcome and goodbye. And thanks for all the fish!
 
 #MAIN COM
 docker-compose -f docker-compose.yml -f custom.yml up -d customfe
@@ -7,34 +7,48 @@ docker-compose -f docker-compose.yml -f custom.yml up -d customfe
 git remote add private ssh://git@mygitlab.dev:10022/pdonorio/restangulask.git
 
 PROTOTYPE:
+☐ parallax ng-repeat
+  ☐ based on content and images
+☐ What if API down? 
+  ☐ At boot/login
+  ☐ Changing page
+☐ What if API unauthorized?
+  ☐ (token timeout)? Force logout
 ☐ Cleaning code
   ✔ test login @done (15-12-30 09:59)
   ✔ test logout @done (15-12-30 09:59)
   ✘ a better reload page for login @cancelled (15-12-30 15:08)
   ✔ create config dir with json (css and js files to load) @done (15-12-28 19:00)
   ✘ json file for extra-framework file? @cancelled (15-12-29 15:13)
+  ✔ probably remove angulask as a separate project @done (16-01-04 16:07)
+    ✔ remove it from push pull and boot script @done (16-01-04 16:07)
   ☐ move static and templates into vanilla?
-  ☐ probably remove angulask as a separate project
-    ☐ remove it from push pull and boot script
-☐ loginer: save in flask db ip @idea
+☐ LOGINER
+   ☐ save in flask db ip @idea
   ☐ prompt login if no token found for that ip?
     ☐ ummm @dontknow
   ☐ Popolate user data and profile dropdown in topbar via python?
+    ☐ maybe wait for JWT
    ✔ main page @done (16-01-02 16:47)
      ✔ search @done (16-01-02 16:47)
      ✔ submission @done (16-01-02 16:47)
-☐ Logout
-  ☐ js -> flask frontend -> api flask
-☐ parallax ng-repeat
-  ☐ based on content and images
-☐ What if API down? JS
+  ☐ Logout
+    ☐ js -> flask frontend -> api flask
 
 SEARCH:
-  ☐ base api
+  ✔ base api @done (16-01-04 11:40)
     ✔ rethinkdb? @done (16-01-02 23:35)
     ✔ add code @done (16-01-03 01:04)
-    ☐ put a flag for rethinkdb connection when app startup
-    ☐ convert old tables into json schemas
+    ✔ put a flag for rethinkdb connection when app startup @done (16-01-03 15:07)
+    ✔ convert old tables into json schemas @done (16-01-03 15:07)
+  ✔ Checks  @done (16-01-04 11:40)
+    ✔ json response @done (16-01-04 01:39)
+  ☐ Land page for search
+    ✔ api call @done (16-01-04 13:56)
+    ☐ table
+      ☐ filters? @ohboy
+  ☐ paging
+  ☐ change loading bar template
 
 WELCOME:
   ☐ slide through parts
@@ -93,6 +107,16 @@ JWT apis:
   ☐ Search
     ☐ A quick single view
 
+ REALTIME (rethink changefeed):
+  ☐ Change Feed
+    ☐ python?
+    https://www.rethinkdb.com/docs/changefeeds/python/
+      ☐ could register an angular timeout to 
+    ☐ or directly js?
+    "Unlike other cursors, the output of changes is infinite: 
+    the cursor will block until more elements are available. "
+    https://github.com/neumino/rethinkdbdash
+
 FROM PREVIOUS 'frontend' angulask:
 - Rest JWT
   ☐ informations to pass along? user?
@@ -122,6 +146,10 @@ JS  LAZY LOAD:
 
 PIPELINE STEPS:
   http://devcenter.wercker.com/learn/pipelines/how-it-works.html
+
+# RETHINKDB MYADMIN
+docker-compose run bower bash
+$ npm install chateau
 
 --- ✄ -----------------------
 --- ✄ -----------------------

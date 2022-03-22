@@ -1,0 +1,34 @@
+<h4>
+Search page!
+</h4>
+
+<div ng-if='error'>
+    <b>ERROR: {{ error }}</b>
+</div>
+
+<div ng-if='data'>
+
+  <table class='bordered highlight responsive-table'>
+    <thead>
+      <tr>
+          <th data-field="id">Record</th>
+          <th data-field="name">Content</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr ng-repeat='row in data'>
+        <td>{{ row.record }}</td>
+        <td>
+            <div ng-repeat='mystep in row.steps'>
+                <i>Step {{ mystep.step }}</i>:
+                <span ng-repeat='fields in mystep.data'>
+                    {{ fields.value }}
+                </span>
+            </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
