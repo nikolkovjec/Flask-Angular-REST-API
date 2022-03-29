@@ -19,3 +19,25 @@ header, main, footer {
 .navbar {
   margin-bottom: 2em;
 }
+
+/* Push-pin CSS3 equivalence
+.pinned {
+    position: fixed !important;
+}
+
+.toc-wrapper {
+    position: relative;
+    margin-top: 42px;
+}
+*/
+
+.transcription {
+  font-family: "Lucida Console", Monaco, monospace;
+  height: 600px; 
+  overflow-y: scroll;
+  padding: 5px;
+}
+
+.celltop {
+  vertical-align: top;
+}
