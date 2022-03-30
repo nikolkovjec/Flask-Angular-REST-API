@@ -1,0 +1,34 @@
+
+<div ng-if='error'>
+    <b>ERROR: {{ error }}</b>
+</div>
+
+<div ng-if='data'>
+
+  <!-- TABS -->
+  <ul class="tabs z-depth-1" tabs>
+      <li class="tab col s3"><a href="#simple">Simple</a></li>
+      <li class="tab col s3"><a href="#tree">Tree view</a></li>
+      <li class="tab col s3"><a href="#list">List</a></li>
+  </ul>
+
+  <!-- AUTOCOMPLETE SEARCH -->
+  <div id="simple" class="col s12 tabtop">
+    <div ng-include="customTemplateDir + 'autocomplete.html'"></div>
+    <!-- DIV FOR DATA > 0 -->
+    <div ng-if='data.length > 0'>
+      <div ng-include="customTemplateDir + 'datatable.html'"></div>
+    </div>
+  </div>
+
+  <!-- TREE EXPLORER -->
+  <div id="tree" class="col s12 tabtop">
+    <div ng-include="customTemplateDir + 'tree.html'"></div>
+  </div>
+
+  <!-- LIST of another fiedl -->
+  <div id="list" class="col s12 tabtop">
+    <div ng-include="customTemplateDir + 'somelist.html'"></div>
+  </div>
+
+</div>

@@ -9,6 +9,8 @@
         'ui.router', //'ngRoute',
 // BOOTSTRAP
         //'mgcrea.ngStrap',
+// OFFICIAL MATERIAL
+        'ngMaterial',
 // MATERIAL DESIGN
         'ui.materialize',
 // THE LOADING BAR
@@ -16,6 +18,8 @@
         'cfp.loadingBar',
 // IMAGES LAZ LOAD
         'angularLazyImg',
+// MAKE DATA TREE explorer
+        'treeControl',
 
 // OTHERS?
     ]);
