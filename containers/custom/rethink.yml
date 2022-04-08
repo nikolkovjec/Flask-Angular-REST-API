@@ -1,0 +1,23 @@
+
+rethinkdb:
+    image: pdonorio/myrethinkdb
+    hostname: rdbmaster
+    # Web admin
+    ports:
+        - 7778:8080
+    volumes:
+        - rdbdata:/data
+
+custombe:
+    extends:
+        file: docker-compose.yml
+        service: backend
+    links:
+        - rethinkdb:rdb
+
+customfe:
+    extends:
+        file: docker-compose.yml
+        service: frontend
+    links:
+        - custombe:myapi

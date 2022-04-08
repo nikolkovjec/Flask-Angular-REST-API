@@ -4,16 +4,18 @@
 angular.module('web')
     .controller('SearchController', SearchController);
 
-function SearchController($scope, $log, $state, search)
+function SearchController($scope, $log, $state, $mdConstant, search)
 {
   $log.info("Ready to search");
   var self = this;
   $scope.data = {};
+  //         md-separator-keys="keys"
+  // $scope.keys = [$mdConstant.KEY_CODE.ENTER, $mdConstant.KEY_CODE.COMMA];
 
   // Template Directories
   var framework = 'materialize';
   var templateDirBase = '/static/app/templates/';
-  //var templateDir = templateDirBase + framework + '/';
+  $scope.templateDir = templateDirBase + framework + '/';
   $scope.customTemplateDir = templateDirBase + 'custom/' + framework + '/';
 
 ////////////////////////////////////////
@@ -48,7 +50,9 @@ function SearchController($scope, $log, $state, search)
 ////////////////////////////////////////
 ////////////////////////////////////////
 
-  function reloadTable(data) {
+  function reloadTable(response) {
+
+    $scope.dataCount = response.count;
 
     var elements = [];
     if (!$scope.stepsInfo) {
@@ -57,14 +61,14 @@ function SearchController($scope, $log, $state, search)
     $log.debug("preprocess");
     $scope.data = [];
 
-    forEach(data, function (x, i) {
+    forEach(response.data, function (x, i) {
 
-      console.log("DATA", x);
+      //console.log("DATA", x);
 
       // SINGLE DETAILS
       search.getSingleData(x.record).then(function(out_single){
 
-        $log.debug("Single element", x.record);
+        //$log.debug("Single element", x.record);
         if (checkApiResponseTypeError(out_single)) {
           setScopeError(out_single, $log, $scope);
         } else {
@@ -81,6 +85,11 @@ function SearchController($scope, $log, $state, search)
           // 'source': null, //x.steps[1].data[0].value,
           // 'extrait': null, //x.steps[0].data[0].value,
         }
+
+        // skip last step, skip 0 which is not defined
+        for (var l = $scope.stepsInfo.length - 2; l > 0; l--) {
+            element[$scope.stepsInfo[l].toLowerCase()] = null;
+        };
 
 /////////////////
 //BAD
@@ -100,9 +109,9 @@ function SearchController($scope, $log, $state, search)
 //BAD
 /////////////////
 
-        search.getDocs(x.record).then(function(out_docs) { 
+        search.getDocs(x.record).then(function(out_docs) {
           if (out_docs.count > 0) {
-            element.image = 
+            element.image =
               out_docs.data[0].images[0].filename.replace(/\.[^/.]+$/, "")
                 + '/TileGroup0/0-0-0.jpg';
           }
@@ -161,15 +170,15 @@ function treeProcessData(steps) {
         'required': field.required,
       };
       fields.push({
-        'type': 'field', 'name': field.name, 'info': infos, 
+        'type': 'field', 'name': field.name, 'info': infos,
         "children": []});
     });
     tree.push({
-      'type': 'step', 'name': single.step.name, 
+      'type': 'step', 'name': single.step.name,
       "children": fields});
   });
 
-  console.log("TREE", tree);
+  $log.info("TREE", tree);
   $scope.myTree = tree;
 
 }
@@ -177,7 +186,6 @@ function treeProcessData(steps) {
   //////////////////////////////////////////////////////////
   // https://material.angularjs.org/latest/demo/autocomplete
   self.states = {};
-  $scope.results = [];
 
   function loadAll(data_steps) {
 
@@ -239,7 +247,7 @@ function treeProcessData(steps) {
     var steps = 3;
     for (var i = 0; i < steps; i++) {
       var json = {
-        'limit': 0, 
+        'limit': 0,
         'autocomplete': {'step': i+1, 'position': 1}
       };
       search.getFromQuery(json).then(function(out_data) {
@@ -254,7 +262,7 @@ function treeProcessData(steps) {
         }
         $scope.autocomplete.push(out_data.data);
         // if ($scope.autocomplete.length == steps) {
-        //   self.states = loadAll(); 
+        //   self.states = loadAll();
         // }
       });
       if ($scope.data === null){
@@ -271,11 +279,11 @@ function treeProcessData(steps) {
           return false;
         }
         // Get steps info
-        search.getSteps().then(function(out_steps) { 
+        search.getSteps().then(function(out_steps) {
           // Autocomplete setup from steps also
-          self.states = loadAll(out_steps.data); 
+          self.states = loadAll(out_steps.data);
           // Create the table
-          reloadTable(out_data.data);
+          reloadTable(out_data);
 
           // Make the tree
           treeProcessData(out_steps.data);
@@ -286,18 +294,21 @@ function treeProcessData(steps) {
   }
 
   // https://material.angularjs.org/latest/demo/chips
+
+  $scope.chips = [];
+
   $scope.newChip = function(chip) {
-    $log.info("Requested tag:", chip);
 
-/* I DISABLED UNKNOWN STRINGS. OTHERWISE, TO USE THEM:
+/* INSTRUCTIONS
+one of the following return values:
 
-    if (typeof chip == 'string') {
-      $log.debug("User chip");
-      return {value:chip, display:chip, type:'custom'};
-    }
+an object representing the $chip input string
+undefined to simply add the $chip input string, or
+null to prevent the chip from being appended
 */
+      $log.info("Requested tag:", chip, "total:", $scope.chips);
       var json = {
-        //'limit': 0, 
+        //'limit': 0,
         'nested_filter': {'position': 1, 'filter': chip.display}
       };
       search.getFromQuery(json).then(function(out_data) {
@@ -307,13 +318,29 @@ function treeProcessData(steps) {
           setScopeError(out_data, $log, $scope);
           $scope.data = null;
           return false;
-        } 
+        }
         if (out_data.count < 1) {
           return false;
         }
-        reloadTable(out_data.data);
-        console.log(out_data);
+        reloadTable(out_data);
+        //console.log(out_data);
       });
+  }
+
+  $scope.removeChip = function(chip, index) {
+
+    //console.log("Delete chip, total:", $scope.chips);
+    //console.log(chip, index);
+    search.getData().then(function(out_data){
+        if ($scope.data === null) {
+          return false;
+        }
+        // Get steps info
+        search.getSteps().then(function(out_steps) {
+          // Create the table
+          reloadTable(out_data);
+        }); // STEPS
+    }); // GET DATA
   }
 
   $scope.changePage = function(page) {

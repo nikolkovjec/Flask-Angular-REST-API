@@ -1,8 +1,7 @@
 #!/bin/bash
 
 #############################
-extra="-f docker-compose.yml -f custom.yml"
-com="docker-compose $extra"
+com="docker-compose"
 #services="backend frontend"
 services="custombe customfe"
 webbuild="bower"
@@ -26,6 +25,8 @@ if [ "$1" == "init" ]; then
 
 # Update repos, packages and images
 elif [ "$1" == "update" ]; then
+
+# TO FIX: add custom compose here too
 
     docker-compose pull
     current=`pwd`
@@ -53,15 +54,28 @@ elif [ "$1" == "bower" ]; then
 
 # Launch services
 else
+
+    if [ -z "$1" ]; then
+        echo "Please specify one configuration to use."
+        echo "Available configurations:"
+        for i in `ls custom`;
+        do
+            name=`echo $i | sed "s/\.yml//"`
+            echo -e "\t$name"
+        done
+        exit
+    fi
+    files="-f docker-compose.yml -f custom/${1}.yml"
+
     #############################
     echo "Cleaning project containers (if any)"
-    $com stop $services
-    $com rm -f $services
+    $com $files stop $services
+    $com $files rm -f $services
     echo "Starting up"
-    $com up -d $services
+    $com $files up -d $services
     if [ "$?" == "0" ]; then
         echo "Up and running:"
-        $com ps
+        $com $files ps
         # docker volume ls
     fi
 fi
