@@ -57,109 +57,59 @@ While for logout i made the button "Yes" to let it happen.
 */
 
 //////////////////////////////
-function LoginController($scope, $window, $location, $log, $auth, $state, $timeout) {
+function LoginController($scope, $log, $window, $auth, $mdToast, $document)
+{
 
+    // Init controller
     $log.debug("Login Controller");
-    $scope.load = true;
-    $timeout(function() {
-        var token = $auth.getToken();
-        $log.debug("Actual token is:", token);
-        if (token !== null) {
-            $state.go('logged');
-        } else {
-            $scope.load = false;
-        }
-    }, 1200);
+    var self = this;
 
-    $scope.loginfun = function(credentials) {
+    // Init the models
+    self.user = {
+       username: null,
+       password: null,
+    };
+
+    // LOGIN LOGIC
+    self.check = function() {
+
+        var credentials = self.user;
         $log.debug("Requested with", credentials);
 
         $auth.login(credentials).then(
             function (loginResponse) {
-                console.log(loginResponse);
-                console.log($auth.getToken());
-/////////////////////////////////////////
-// THERE IS NO WAY TO MAKE THIS TWO IN ONE COMMAND...
-                //$state.go('logged');
+                $log.info("Login request", loginResponse);
+                //console.log($auth.getToken());
+
+                // Now we can check again reloading this page
                 $window.location.reload();
-/////////////////////////////////////////
 
             }, function(errorResponse) {
-                $log.warn("Failed");
+                $log.warn("Auth: failed");
                 console.log(errorResponse.data.errors);
-
+                $scope.showSimpleToast(errorResponse.data.errors);
             }
-            );
+        );
     }
 }
 
 function LogoutController($scope, $log, $auth)
 {
+    // Init controller
     $log.debug("Logout Controller");
+    var self = this;
 
-    // Template Directories
-    var framework = 'materialize';
-    var templateDirBase = '/static/app/templates/';
-    $scope.templateDir = templateDirBase + framework + '/';
-    //$scope.customTemplateDir = templateDirBase + 'custom/' + framework + '/';
-
-    $scope.logoutfun = function() {
-
-        console.log("Logging out");
+    // Log out satellizer
+    self.exit = function() {
+        $log.info("Logging out");
+// TO FIX:
+    // missing log out from APIs too
     	$auth.logout().then(function() {
-            console.log("Token cleaned:", $auth.getToken());
+            $log.debug("Token cleaned:", $auth.getToken());
         });
     }
-
-    // auth.authenticatedRequest(token)
-    //  .then(function logged(some){
-    //     console.log("Token in storage is:", auth.getToken());
-    // });
 
 }
 
 // THE END
 })();
-
-/*
-///////////////////////////////////////////
-// https://thinkster.io/angularjs-jwt-auth
-///////////////////////////////////////////
-function authService($window, $http, $log) {
-
-    var self = this;
-    var FE_URL = 'http://awesome.dev'
-    var API_URL = 'http://awesome.dev:8081/api'
-
-////////////
-    self.saveToken = function(token) {
-      $window.localStorage['jwtToken'] = token;
-      return token;
-    }
-    self.getToken = function() {
-      return $window.localStorage['jwtToken'];
-    }
-////////////
-
-    self.requestToken = function(content) {
-        var req = {
-            method: 'POST',
-            url: FE_URL + '/auth',
-            // headers: {
-            //   'Content-Type': undefined
-            // },
-            data: { 'username': content.email, 'password': content.pwd }
-        }
-
-        return $http(req).then(
-            function successCallback(response) {
-                $log.info("Authentication successful");
-                return self.saveToken(response.data.user.authentication_token);
-          }, function errorCallback(response) {
-                $log.error("Authentication FAILED")
-                //console.log(response);
-                return self.saveToken(null);
-        });
-    }
-}
-*/

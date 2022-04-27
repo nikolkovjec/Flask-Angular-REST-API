@@ -16,21 +16,24 @@
 		//
         // # WHAT ELSE?
 		//"animate.css/animate.min.css"
-		"angular-loading-bar/build/loading-bar.min.css",
+		//"angular-loading-bar/build/loading-bar.min.css",
 		"angular-tree-control/css/tree-control.css"
 		//"angular-tree-control/css/tree-control-attribute.css"
 	],
 // USER CUSTOM CSS
 	"customcss" : [
-		// # BOOTSTRAP
+	// # BOOTSTRAP
 		//"css/custom.css"
-		// # MATERIAL
+	// # MATERIAL
 		"css/custom_material.css"
+
 	],
 // Cool FONTS
 	"fonts" : [
-		"http://fonts.googleapis.com/icon?family=Material+Icons"
         //"font-awesome/css/font-awesome.min.css",
+        // # MATERIAL FONTS
+        "css/myfonts.css"
+        //"http://fonts.googleapis.com/icon?family=Material+Icons"
 	],
 // Angular framework and app files
 //(starting from bower dir)
@@ -57,7 +60,7 @@
 	    "angular-material/angular-material.min.js",
 	    // # OTHER LIBS
 	    "satellizer/satellizer.min.js",
-	    "angular-loading-bar/build/loading-bar.min.js",
+	    //"angular-loading-bar/build/loading-bar.min.js",
 	    "angular-lazy-img/release/angular-lazy-img.min.js",
 	    "angular-tree-control/angular-tree-control.js"
 	// JWT ?

@@ -1,9 +1,9 @@
-#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 """ Main routes """
 
 from __future__ import absolute_import
+import os
 from pathlib import Path
 from flask import Blueprint, render_template, request, \
     jsonify, redirect, url_for, g
@@ -15,6 +15,8 @@ from config import get_logger, FRAMEWORKS
 
 logger = get_logger(__name__)
 CURRENT_FRAMEWORK = None
+BLUEPRINT_KEY = 'blueprint'
+CURRENT_BLUEPRINT = None
 
 #######################################
 # Blueprint for base pages, if any
@@ -47,6 +49,8 @@ for sjs in fconfig['customjs']:
 fonts = []
 for sfont in fconfig['fonts']:
     # This should be an external url
+    if 'http' not in sfont:
+        sfont = staticdir + sfont
     fonts.append(sfont)
 # Images
 imgs = []
@@ -62,16 +66,33 @@ if 'logos' not in user_config['content']:
 #######################################
 # ## JS BLUEPRINTS
 
-# // TO FIX:
-# ## This should load only a specified angular blueprint
-# Dynamically load all other angularjs files
-prefix = __package__
-for pathfile in Path(prefix + '/' + staticdir + '/app').glob('**/*.js'):
-    strfile = str(pathfile)
-    jfile = strfile[len(prefix)+1:]
-    if jfile not in js:
-        js.append(jfile)
-# // TO FIX -END
+# Load only a specified angular blueprint
+if BLUEPRINT_KEY not in user_config['options']:
+    logger.critical("No blueprint found, not loading angular app")
+else:
+    CURRENT_BLUEPRINT = user_config['options'][BLUEPRINT_KEY]
+    logger.info("Adding JS blueprint '%s'" % CURRENT_BLUEPRINT)
+    prefix = __package__
+    # JS BLUEPRINT config
+    jfiles = [Path(prefix + '/js/blueprint.js')]
+    # JS files in the root directory
+    app_path = os.path.join(prefix, staticdir, 'app')
+    jfiles.extend(Path(app_path).glob('*.js'))
+    # JS common files
+    common_path = os.path.join(app_path, 'commons')
+    jfiles.extend(Path(common_path).glob('*.js'))
+    # JS files only inside the blueprint subpath
+    blueprint_path = os.path.join(app_path, CURRENT_BLUEPRINT)
+    jfiles.extend(Path(blueprint_path).glob('**/*.js'))
+
+    print(jfiles)
+
+    # Use all files found
+    for pathfile in jfiles:
+        strfile = str(pathfile)
+        jfile = strfile[len(prefix)+1:]
+        if jfile not in js:
+            js.append(jfile)
 
 #######################################
 user_config['content']['stylesheets'] = css
@@ -137,6 +158,15 @@ def auth():
 def register():
     return "THIS IS YET TO DO (also 'forgot password')"
 ################################################
+
+
+@cms.route('/js/blueprint.js')
+def jsblueprint():
+    variables = {
+        'name': CURRENT_BLUEPRINT,
+        'time': user_config['options']['load_timeout']
+    }
+    return render_template("blueprint.js", **variables)
 
 
 # ################

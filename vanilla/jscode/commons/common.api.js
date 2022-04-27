@@ -10,29 +10,30 @@ function RestApiService($window, $http, $auth, $log) {
 
     // This is for development.
     // In production nginx should provide access to 'api' url
-    var API_PORT = 8081;
+    self.API_PORT = 8081;
 
-    var API_URL =
-        window.location.protocol + "//" + 
-        window.location.host + ':' + API_PORT + 
+    self.API_URL =
+        window.location.protocol + "//" +
+        window.location.host + ':' + self.API_PORT +
         '/api/'
         ;
 
     self.endpoints = {
-        search: 'datavalues',
-        submit: 'datakeys',
-        documents: 'datadocs',
-        users : 'accounts',
+        check: 'verify',
+        logged: 'verifylogged',
+        admin: 'verifyadmin',
     }
+
 
     self.getOrDefault = function (value, mydefault) {
         return typeof value !== 'undefined' ? value : mydefault;
     }
 
-    self.apiCall = function (endpoint, key, method, data) {
+    self.apiCall = function (endpoint, key, method, data, errorCheck) {
 
         //DEFAULTS
-        endpoint = self.getOrDefault(endpoint, self.endpoints.search);
+        errorCheck = self.getOrDefault(errorCheck, false);
+        endpoint = self.getOrDefault(endpoint, self.endpoints.check);
         if (typeof key !== 'undefined' && method != 'POST') {
             endpoint += '/' + key;
         }
@@ -41,28 +42,57 @@ function RestApiService($window, $http, $auth, $log) {
             data = {};
         } else {
             data = self.getOrDefault(data, {});
-            $log.debug("Sending data", data);
+            //$log.debug("Sending data", data);
         }
 
         var token = $auth.getToken();
         var req = {
             method: method,
-            url: API_URL + endpoint,
+            url: self.API_URL + endpoint,
             headers: {
                 'Content-Type': 'application/json',
                 'Authentication-Token': token,
             },
             data: data,
+            timeout: 5500,
         }
 
         return $http(req).then(
             function successCallback(response) {
-                $log.debug("API call successful");
+                //$log.debug("API call successful");
                 return response.data;
           }, function errorCallback(response) {
-                $log.error("API failed to call")
-                return response.data;
+                $log.warn("API failed to call")
+                if (errorCheck) {
+                    return response;
+                } else {
+                    // Default: data or null
+                    if (typeof response.count === 'undefined') {
+                        return null;
+                    }
+                    return response.data;
+                }
         });
+    }
+
+    self.verify = function(logged) 
+    {
+        var endpoint = self.endpoints.check;
+        if (logged) {
+            endpoint = self.endpoints.logged;
+        }
+        return self.apiCall(endpoint, undefined, 'GET', {}, true)
+            .then(function (response) {
+                $log.debug("API verify:", response);
+                if (response.status > 250) {
+                    // API available
+                    return false;
+                } else if (response.status < 0) {
+                    // API offline
+                    return null;
+                }
+                return true;
+            });
     }
 }
 

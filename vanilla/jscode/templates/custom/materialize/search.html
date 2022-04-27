@@ -1,66 +1,62 @@
+<div class="container" ng-controller="SearchController as search">
 
-<div ng-if='error'>
+ <div ng-if='error'>
     <b>ERROR: {{ error }}</b>
-</div>
+ </div>
 
-<div ng-if='data'>
-
-  <md-content class="z-depth-1">
-
+ <div ng-if='data' class="row z-depth-2">
   <!-- TABS -->
-    <md-tabs md-dynamic-height md-border-bottom>
+  <md-tabs
+    md-dynamic-height md-border-bottom
+    md-swipe-content md-center-tabs
+    md-selected='search.selectedTab'
+    >
 
-      <!-- AUTOCOMPLETE SEARCH -->
-      <md-tab label="Simple">
-        <md-content class="md-padding">
-            <div ng-include="customTemplateDir + 'autocomplete.html'"></div>
-            <div ng-if="data.length < 1">
-                <div ng-include="templateDir + 'loader.html'"></div>
+    <!-- AUTOCOMPLETE SEARCH -->
+    <md-tab label="Simple" md-on-select="search.onTabSelected()">
+      <md-content
+        layout='column' layout-align='space-around stretch'>
+
+<!-- search bar -->
+        <div ng-include="search.customTemplateDir + 'tags.html'"></div>
+
+<!-- results -->
+        <div ng-show="results">
+            <div ng-if="dataCount == NaN">
+                <div ng-include="search.templateDir + 'loader.html'"></div>
             </div>
-            <div ng-if='data.length > 0'>
-              <div ng-include="customTemplateDir + 'datatable.html'"></div>
+            <div ng-if="dataCount == 0"
+                layout='row' layout-align='center'>
+                <p> No data found. </p>
             </div>
-        </md-content>
-      </md-tab>
+            <div ng-if='dataCount > 0'
+                ng-include="search.customTemplateDir + 'datatable.html'">
+            </div>
+        </div>
+<!-- results -->
 
-      <!-- TREE EXPLORER -->
-      <md-tab label="Tree explorer">
-        <md-content class="md-padding">
-            <div ng-include="customTemplateDir + 'tree.html'"
-                style="width: 600px;"></div>
-        </md-content>
-      </md-tab>
+      </md-content>
+    </md-tab>
 
-      <!-- LIST of another fiedl -->
-      <md-tab label="Step list">
-        <md-content class="md-padding">
-            <div ng-include="customTemplateDir + 'somelist.html'"></div>
-        </md-content>
-      </md-tab>
-
-    </md-tabs>
-  </md-content>
-
-  <!-- TABS
-  <ul class="tabs z-depth-1" tabs>
-      <li class="tab col s3"><a href="#simple">Simple</a></li>
-      <li class="tab col s3"><a href="#tree">Tree view</a></li>
-      <li class="tab col s3"><a href="#list">List</a></li>
-  </ul>
-
-  <div id="simple" class="col s12 tabtop">
-    <div ng-include="customTemplateDir + 'autocomplete.html'"></div>
-    <div ng-if='data.length > 0'>
-      <div ng-include="customTemplateDir + 'datatable.html'"></div>
-    </div>
-  </div>
-
-  <div id="tree" class="col s12 tabtop">
-    <div ng-include="customTemplateDir + 'tree.html'"></div>
-  </div>
-
-  <div id="list" class="col s12 tabtop">
-    <div ng-include="customTemplateDir + 'somelist.html'"></div>
-  </div>
+    <!-- TREE EXPLORER
+    <md-tab label="Tree explorer" ng-if='search.dataCount > 0'>
     -->
+    <md-tab label="Tree explorer" md-on-select="search.onTabSelected()">
+      <md-content class="md-padding">
+        <div ng-include="search.customTemplateDir + 'tree.html'" style="width: 600px;"></div>
+      </md-content>
+    </md-tab>
+
+    <!-- LIST of another field
+    <md-tab label="Step list" ng-if='search.dataCount > 0'>
+    -->
+    <md-tab label="Step list" md-on-select="search.onTabSelected()">
+      <md-content class="md-padding">
+        <div ng-include="search.customTemplateDir + 'somelist.html'"></div>
+      </md-content>
+    </md-tab>
+
+  </md-tabs>
+
+ </div>
 </div>
