@@ -51,16 +51,18 @@ frontend:
         - ..:/data
         # js/css libraries installed via bower
         - ../vanilla/jslibs/bower_components:/data/frontend/felask/static/bower
+        # custom css files
+        - ../vanilla/templates/customcss:/data/frontend/felask/static/css
         # All the angular blueprints (&& templates)
         - ../vanilla/jscode:/data/frontend/felask/static/app
         # Python pages
         - ../vanilla/pages:/data/frontend/felask/pypages
         # Python templates
         - ../vanilla/templates/python:/data/frontend/felask/templates/custom
+        # # Angular blueprint
+        - ../vanilla/specs:/data/frontend/config/angular/blueprints
     ports:
         - 80:5000
-    # links:
-    #     - backend:myapi
 
 ###############################
 # Make automatic to install libraries

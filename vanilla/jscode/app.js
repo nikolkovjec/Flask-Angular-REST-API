@@ -28,7 +28,11 @@ console.log('POST');
         'angularLazyImg',
 // MAKE DATA TREE explorer
         'treeControl',
-
+// KEYBOARD SHORTCUTS        
+        'cfp.hotkeys',
+// FORMS FROM JSON SCHEMAS
+        'formly',        
+        'formlyMaterial',
 // OTHERS?
         //'blueprint',
     ]);

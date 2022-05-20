@@ -17,15 +17,17 @@
         // # WHAT ELSE?
 		//"animate.css/animate.min.css"
 		//"angular-loading-bar/build/loading-bar.min.css",
-		"angular-tree-control/css/tree-control.css"
+		"angular-tree-control/css/tree-control.css",
 		//"angular-tree-control/css/tree-control-attribute.css"
+		"angular-hotkeys/build/hotkeys.min.css"
 	],
 // USER CUSTOM CSS
 	"customcss" : [
 	// # BOOTSTRAP
 		//"css/custom.css"
 	// # MATERIAL
-		"css/custom_material.css"
+		"css/custom_material.css",
+		"css/style.css"
 
 	],
 // Cool FONTS
@@ -62,10 +64,14 @@
 	    "satellizer/satellizer.min.js",
 	    //"angular-loading-bar/build/loading-bar.min.js",
 	    "angular-lazy-img/release/angular-lazy-img.min.js",
-	    "angular-tree-control/angular-tree-control.js"
+	    "angular-tree-control/angular-tree-control.js",
 	// JWT ?
 		//
 	// libs on demand
+		"angular-hotkeys/build/hotkeys.min.js",
+		"api-check/dist/api-check.min.js",
+		"angular-formly/dist/formly.min.js",
+		"angular-formly-material/dist/formly-material.min.js"
 	    //"moment/min/moment.min.js",
 	],
 // USER CUSTOM APP
