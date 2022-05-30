@@ -1,6 +1,5 @@
 <div class="container" ng-controller="AdminController as adm">
 
-
  <div class="row z-depth-2">
   <md-tabs
     md-dynamic-height md-border-bottom
@@ -11,13 +10,103 @@
     <md-tab label="Welcome page"
         md-on-select="adm.onTabSelected()">
       <md-content class="md-padding">
-        Test 1
+
+<!-- PURE MATERIAL DESIGN
+    <form>
+      <div layout-gt-sm="row">
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Name</label>
+          <input
+            md-maxlength="30" required
+            name="name" ng-model="adm.model.name" />
+          <div class="hint" ng-if="showHints">Tell us what we should call you!</div>
+          <div ng-messages="userForm.name.$error" ng-if="!showHints">
+            <div ng-message="required">Name is required.</div>
+            <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+          </div>
+        </md-input-container>
+      </div>
+    </form>
+-->
+
+<!-- XEDITABLE on MATERIAL DESIGN
+https://github.com/vitalets/angular-xeditable/issues/232
+
+USE THE FORM
+https://vitalets.github.io/angular-xeditable/#editable-form
+-->
+
+<form editable-form name="editableForm" onaftersave="saveUser()">
+
+ <table class="highlight">
+
+ <thead>
+     <tr>
+        <th ng-repeat="model in adm.sectionModels">
+            {{model.name}}
+        </th>
+     </tr>
+ </thead>
+
+ <tbody>
+  <tr ng-repeat="model in adm.models">
+    <td ng-repeat="(key, value) in model track by $index">
+      <span editable-textarea="value"
+        e-rows="7" e-cols="40" e-aria-label="{{key}}"
+        e-placeholder="{{adm.sectionModels[$index].description || 'Insert some value'}}"
+        >
+            <span ng-bind-html="value||'empty'"></span>
+    </td>
+  </tr>
+ </tbody>
+
+ </table>
+
+ <div class="buttons">
+  <!-- button to show form -->
+  <md-button type="button" class="md-default"
+    ng-click="editableForm.$show()" ng-show="!editableForm.$visible">
+    Edit
+  </md-button>
+  <!-- buttons to submit / cancel form -->
+  <span ng-show="editableForm.$visible">
+    <md-button type="submit" class="md-primary"
+        ng-disabled="editableForm.$waiting">
+      Save
+    </md-button>
+    <md-button type="button" class="md-default"
+        ng-disabled="editableForm.$waiting"
+        ng-click="editableForm.$cancel()">
+      Cancel
+    </md-button>
+  </span>
+</div>
+
+<md-content layout-padding flex='grow'
+    layout='row' layout-align='end center'>
+    <a class="btn-floating waves-effect waves-light red"
+        href="#">
+        <i class="material-icons">add</i>
+    </a>
+
+<!--
+    <md-button class="md-fab md-mini">
+        <i class="material-icons">add</i>
+    </md-button>
+-->
+</md-content>
+
+</form>
+
+
+
+
       </md-content>
     </md-tab>
 
     <md-tab label="Steps" md-on-select="adm.onTabSelected()">
       <md-content class="md-padding">
-        Test 2
+        Move the tree view here
 <!--
         <div ng-include="adm.blueprintTemplateDir + 'tmp.html'"></div>
  -->

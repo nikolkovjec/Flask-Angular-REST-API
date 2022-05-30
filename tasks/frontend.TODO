@@ -1,28 +1,51 @@
 
 >  Welcome and goodbye. And thanks for all the fish!
 
---- ✄ -----------------------
-#MAIN COM
-docker-compose -f docker-compose.yml -f custom.yml up -d customfe
 # PRIVATE GIT
 git remote add private ssh://git@mygitlab.dev:10022/pdonorio/restangulask.git
-# ANGULAR and  MATERIAL
-https://material.angularjs.org/latest/layout/alignment
-http://www.toptal.com/angular-js/top-18-most-common-angularjs-developer-mistakes
 --- ✄ -----------------------
 
 New fixed search:
 ✔ onenter and onexit route extra @done (16-01-25 11:10)
+✔ Tree back @done (16-01-25 12:42)
 ✔ Parties back @done (16-01-25 12:15)
  ☐ sub piece in lazy load?
-✔ Tree back @done (16-01-25 12:42)
 ☐ chips watch?
 ☐ lazy load of more than 10 results
 ☐ Application name inside the Toolbar should be a hand made font?
+☐ Quick elastic search
+ ☐ Show autocomplete inside search bar after first char
+ ☐ query elastic search
+
+WELCOME:
+  ✔ Make this angular page @done (16-01-26 08:24)
+    ✔ move it to internal angular routing @done (16-01-26 08:24)
+  ☐ Admin page
+    ✔ admin api @done (16-01-26 08:24)
+      ☐ post with json
+      ☐ input form
+        ✔ xeditable material @done (16-01-26 11:36)
+  ☐ Welcome controller
+    ☐ upload and save given images
+    ☐ parallax ng-repeat?
+      ☐ based on content and images
 
 Admin page:
   ✔ Change toolbar color @done (16-01-25 16:03)
-  ☐ Tabs?
+  ✔ Tabs? @done (16-01-27 09:44)
+  ☐ Move tree here for administrating steps
+    ☐ refactor steps
+  ☐ FAB plus button
+  http://codepen.io/kyleledbetter/full/gbQOaV/
+  ☐ inline wysiwyg + xeditable
+    ☐ use both and hide textarea
+    http://stackoverflow.com/q/30761498
+   ☐ ngWYSIWYG
+   http://psergus.github.io/ngWYSIWYG/
+
+Autocomplete:
+  ☐ elasticsearch
+  ☐ rethinkdb table change feed
 
 History:
 ☐ save old state
@@ -30,37 +53,42 @@ History:
  ☐ show a clickable div that change ui router state
 
 BUGS:
-☐ welcome spy padding?
-☐ Some times chips do not see change of text?
+✔ welcome spy padding? @done (16-01-26 15:11)
+✔ ui router checks in root controller need to be done on statechangesuccess... @done (16-01-26 09:40)
 ☐ spy is probably broken in latest materialize? @toverifyagain
  ✔ does not work with jquery 2.2. Only 2.1 @done (16-01-25 11:00)
- ☐ table are not same size on details
- ☐ extrait not complete list
- ☐ mostra nella pagina di ricerca
- ☐ mostra nella pagina di dettaglio
+☐ chips with bigger div to show results
+☐ table are not same size on details
+☐ extrait not complete list
+☐ mostra nella pagina di ricerca
+☐ mostra nella pagina di dettaglio
+☐ topbar menu for mobile
 
-EXPOSITION:
+SEARCH:
+☐ Some times chips do not see change of text?
+☐ Chip list is too small. Can i change the template?
+☐ Chips array = apply filter on cascade
+☐ infinite scrolling is easy
+  https://material.angularjs.org/latest/demo/virtualRepeat
 
-  ☐ Tre sale
-    ☐ Un testo per sala
-    ☐ Una o più immagini per sala
-    ☐ Scrollspy
-    ☐ materiale sensibile
-    ☐ zoomify
-  ☐ Design on a piece of paper
-  ☐ un mosaico di immagini
+DETAILS:
+  ☐ Zoomify
+    ☐ angular open new tab /page
+    ☐ via python request and jinja template
+ ☐ select language on transcription
+ ☐ aggiungere lista dettagli (step 4) sotto lo scrollspy
 
-EXPLORER:
- ✔ To fix controller.... @bug @done (16-01-23 23:34)
-✔ TABS @done (16-01-23 23:34)
-     ☐ lazy load when tab is selected?
- ☐ TAB1 - md-list with steps
-   ☐ on open, lazy load for content
-   ☐ data, luogo (source)
-   ☐ on open source + first page
-     ☐ on click open page browsing
- ☐ TAB2 - exposition
- ☐ TAB3 - tree explorer
+SUBMIT:
+ ☐ Steps are upside down
+ ☐ Go from the biggest step to the leaf, as a branch
+   ☐ breadcrumbs show the progress
+
+  ☐ transcriptions size inside db? or post/get method injection?
+  ☐ Submission skeleton with collapsible or collections
+  ☐ Submission steps
+  http://materializecss.com/collections.html
+ ☐ good example for transcription edit
+ https://material.angularjs.org/latest/demo/menuBar
 
 OTHER:
 ☐ update angular to 1.5 rc
@@ -88,67 +116,24 @@ OTHER:
     ☐ js -> flask frontend -> api flask
   ☐ change loading bar template
 
-PROBLEMS:
-  ✔ Images not loading @done (16-01-08 01:46)
-  ✔ Removing chips does not reload page @done (16-01-08 08:22)
-  ☐ Chips array = apply filter on cascade
-  ☐ topbar menu for mobile
-  ☐ Pagination action?
-    ☐ lazy load instead of pagination
-    ☐ infinite scrolling is easy
-    https://material.angularjs.org/latest/demo/virtualRepeat
-  ☐ Some tabs transitions are slow!
+EXPOSITION:
+  DESIGN ON A PIECE OF PAPER
+  ☐ Tre sale
+    ☐ Scrollspy
+      ☐ Un testo per sala
+      ☐ Una o più immagini per sala
+    ☐ Sections gallery
+      ☐ un mosaico di immagini
+      http://foundation.zurb.com/sites/docs/v/5.5.3/components/clearing.html
+    ☐ materiale sensibile?
+    ☐ zoomify
 
-SEARCH:
-    ✔ RDB query @done (16-01-07 16:03)
-      ✔ POST with key 'operations' and json data @done (16-01-07 03:18)
-      ✔ test with js @done (16-01-08 01:33)
-      ✔ Complete chips and typeahead @done (16-01-08 01:33)
-    ✔ TAB: View for parties @done (16-01-08 16:13)
-    ✔ TAB: Tree from steps @treecontrol @done (16-01-07 19:04)
-    ✔ convert tabs into official material @done (16-01-08 06:49)
-    https://material.angularjs.org/latest/demo/tabs
-    ☐ do not show results if nothing searched
-      ☐ progress angular with template if loading
-    ☐ Why the hell http requests hang?
+VOCABULARY:
     ☐ Question mark to switch to PDF help
       ☐ Admin page to add a vocabulary
         ☐ Excel load
         ☐ web site insert
       ☐ step list angular inline filter
-
-WELCOME:
-  ☐ Not an angular page......
-  ☐ submission amministratore...
-  ✔ scrollspy also here @done (16-01-08 07:24)
-    ✔ separate scrollspy section: on every field @done (16-01-08 07:24)
-  ☐ FAB buttons
-    ☐ if not logged
-      ☐ search, login
-    ☐ if logged
-      ☐ insert for normal or exibition
-      ☐ search for normal or exibition
-  ☐ put given images
-  ☐ autocomplete search box?
-  ☐ parallax ng-repeat?
-    ☐ based on content and images
-
-DETAILS:
-  ☐ Zoomify
-    ☐ angular open new tab /page
-    ☐ via python request and jinja template
- ☐ select language on transcription
- ☐ aggiungere lista dettagli (step 4) sotto lo scrollspy
-
-SUBMIT:
-  ☐ transcriptions size inside db? or post/get method injection?
-  ☐ Submission skeleton with collapsible or collections
-  ☐ Submission steps
-  http://materializecss.com/collections.html
- ☐ ngWYSIWYG
- http://psergus.github.io/ngWYSIWYG/
- ☐ good example for transcription edit
- https://material.angularjs.org/latest/demo/menuBar
 
 HTTPS:
   ☐ nginx proxy
@@ -209,16 +194,6 @@ JWT apis:
     the cursor will block until more elements are available. "
     https://github.com/neumino/rethinkdbdash
 
-FROM PREVIOUS 'frontend' angulask:
-- Rest JWT
-  ☐ informations to pass along? user?
-- Add pages
-  ☐ with ease
-- Flask blueprint?
- ☐ auth blueprint (login part)
-
-☐ Angular blueprint load
-
 ui router pitfall:
   http://www.codelord.net/2015/06/02/angularjs-pitfalls-using-ui-routers-resolve/
 ☐ Api connection retry?
@@ -227,7 +202,6 @@ https://github.com/rholder/retrying
 https://github.com/mitsuhiko/jinja2-htmlcompress
 ☐ How to quickly add a blueprint for a whole new suburl
 http://flask.pocoo.org/snippets/59/
-
 
 One time binding:
     https://www.binpress.com/tutorial/speeding-up-angular-js-with-simple-optimizations/135
@@ -239,11 +213,6 @@ JS  LAZY LOAD:
 PIPELINE STEPS:
   http://devcenter.wercker.com/learn/pipelines/how-it-works.html
 
-# RETHINKDB MYADMIN
-docker-compose run bower bash
-$ npm install chateau
-
---- ✄ -----------------------
 --- ✄ -----------------------
 
 COMPLETED:
@@ -357,3 +326,22 @@ COMPLETED:
        ✘ or if press enter inside empty search @hotkeys @cancelled (16-01-25 09:37)
  ✔ Get out of search @done (16-01-25 10:22)
    ✔ ESC keyword @hotkeys @done (16-01-25 09:36)
+  ✔ scrollspy also here @done (16-01-08 07:24)
+    ✔ separate scrollspy section: on every field @done (16-01-08 07:24)
+ ✔ To fix controller.... @bug @done (16-01-23 23:34)
+✔ TABS @done (16-01-23 23:34)
+     ✔ lazy load when tab is selected? @done (16-01-26 15:30)
+  ✔ Images not loading @done (16-01-08 01:46)
+  ✔ Removing chips does not reload page @done (16-01-08 08:22)
+    ✔ RDB query @done (16-01-07 16:03)
+      ✔ POST with key 'operations' and json data @done (16-01-07 03:18)
+      ✔ test with js @done (16-01-08 01:33)
+      ✔ Complete chips and typeahead @done (16-01-08 01:33)
+    ✔ TAB: View for parties @done (16-01-08 16:13)
+    ✔ TAB: Tree from steps @treecontrol @done (16-01-07 19:04)
+    ✔ convert tabs into official material @done (16-01-08 06:49)
+    https://material.angularjs.org/latest/demo/tabs
+    ✔ do not show results if nothing searched @done (16-01-26 15:32)
+      ✔ progress angular with template if loading @done (16-01-26 15:32)
+    ✔ Why the hell http requests hang? @done (16-01-26 15:32)
+      ✔ flask multi thread @done (16-01-26 15:32)
