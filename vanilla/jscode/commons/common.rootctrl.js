@@ -20,6 +20,7 @@ function AppRootController($scope, $rootScope, $log, $state, $timeout, api, hotk
     // Init controller
     var self = this;
     $log.debug("Root controller");
+    $rootScope.loaders = [];
 
     // Passing a global variable
     self.templateDir = templateDir;
@@ -60,12 +61,12 @@ function AppRootController($scope, $rootScope, $log, $state, $timeout, api, hotk
                 // Avoid the user to see the reload of the page
                 timeToWait += 500;
             }
-            // If welcome page, don't do anything
-            if (!self.intro) {
-                console.log("Going to logged");
-                // Try to force logging
-                $state.go('logged');
-            }
+            // // If welcome page, don't do anything
+            // if (!self.intro) {
+            //     console.log("Going to logged");
+            //     // Try to force logging
+            //     $state.go('logged');
+            // }
         }
 
         // Let this login load after a little while

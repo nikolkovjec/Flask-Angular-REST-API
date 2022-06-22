@@ -18,21 +18,22 @@ function _redirectIfNotAuthenticated($state, $auth, $timeout, $log, api)
       if ($auth.isAuthenticated()) {
         if (response) {
             return true;
-        } else {
-          // Token has expired...
-          $log.info("Removed token, because it seems expired.");
-          $auth.removeToken();
         }
       }
       var state = 'login';
       // API not reachable
       if (response === null) {
         state = 'offline';
+      } else {
+        // Token has expired...
+        $auth.removeToken();
+        $log.info("Removed token, because it seems expired.");
       }
+
+      $log.error("Failed resolve. Go to", state);
       // Not logged or API down
       $timeout(function () {
           // redirect
-          $log.error("Failed resolve");
           $state.go(state);
           return false;
       });
@@ -49,6 +50,7 @@ function _skipAuthenticationCheckApiOnline($state, $timeout, $auth, api)
 
         // API available
         if (response) {
+          //console.log("RESPONSE LOGIN:", response);
           return response;
         }
         // Not available
@@ -121,6 +123,7 @@ function config($stateProvider, $urlRouterProvider, $authProvider, $logProvider,
 
             var finalRoute = {
                 url: x.url,
+                params: x.params,
                 views: myViews,
                 // ON ENTER AND EXIT
                 onEnter: x.onEnter,
@@ -199,7 +202,10 @@ $stateProvider
     // Routes definition ends here
     ;
 
+// TO FIX: move it to custom routing somehow
+// Missing bar on some routes
     $urlRouterProvider.when("/app/search", "/app/search/");
+    $urlRouterProvider.when("/app/admin", "/app/admin/");
 
 // Ui router kinda bug fixing
 // CHECK THIS IN THE NEAR FUTURE

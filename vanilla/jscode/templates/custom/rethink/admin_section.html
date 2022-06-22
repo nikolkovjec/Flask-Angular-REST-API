@@ -1,0 +1,75 @@
+
+<div ng-controller="WelcomeController as wadm">
+
+    <md-toolbar layout="column"
+        class="md-tall md-default-theme light-blue darken-1 md-whiteframe-6dp">
+      <div class="md-toolbar-tools">
+        <div layout="row" flex="flex" class="fill-height"
+        layout-align="center center">
+          <div class="md-toolbar-item md-breadcrumb" aria-hidden="false">
+            <span tabindex="0"> <br>
+                Custom sections for your <i>Welcome page</i>
+            </span>
+          </div>
+        </div>
+      </div>
+    </md-toolbar>
+
+
+<!--
+          <div class="card" ng-repeat="model in sectionModels">
+            <div class="card-content">
+              <span class="card-title"> {{ model.name }} </span>
+              <p>I am a very simple card. I am good at containing small bits of information.
+              I am convenient because I require little markup to use effectively.</p>
+            </div>
+            <div class="card-action">
+              <a href="#">This is a link</a>
+              <a href="#">This is a link</a>
+            </div>
+          </div>
+-->
+
+     <table class="highlight">
+     <thead>
+         <tr>
+            <th ng-repeat="model in wadm.sectionModels">
+                {{model.name}}
+            </th>
+            <th width="10%">
+                <a href class="btn-floating waves-effect waves-light red"
+                   ng-click="wadm.showAdvanced($event)"
+                   tooltipped data-position="top" data-delay="50"
+                   data-tooltip="Add a new Section"
+                   >
+                    <i class="material-icons">add</i>
+                </a>
+            </th>
+         </tr>
+     </thead>
+
+     <tbody ng-if="loaders['admin_sections']">
+       <tr>
+        <td colspan="10" ng-include="adm.templateDir+'loader.html'"></td>
+       </tr>
+     </tbody>
+
+     <tbody ng-hide="loaders['admin_sections']">
+      <tr ng-repeat="model in sections">
+        <td ng-repeat="template in wadm.sectionModels">
+            <span ng-bind-html=" model.data[template.name] ||'empty'"></span>
+        </td>
+        <td>
+          <a class="waves-effect waves-light btn-floating"
+           ng-click="wadm.showAdvanced($event, model)"
+           tooltipped data-position="left" data-delay="50"
+           data-tooltip="Edit this section" >
+              <i class="material-icons">mode_edit</i>
+          </a>
+        </td>
+      </tr>
+     </tbody>
+
+    </table>
+
+</div>
