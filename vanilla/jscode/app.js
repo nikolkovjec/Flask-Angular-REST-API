@@ -35,11 +35,15 @@ console.log('POST');
         'treeControl',
 // KEYBOARD SHORTCUTS
         'cfp.hotkeys',
+// DRAG AND DROP
+        'angular-sortable-view',
 // FORMS FROM JSON SCHEMAS
         'formly',
         'formlyMaterial',
 // EDITABLE FORMS
         'xeditable',
+// RESTARTABLE UPLOAD
+        'flow',
 
 /* Custom end */
 //////////////////////////////////////

@@ -8,6 +8,7 @@ angular.module('web')
     {
 
     //////////////////////
+//NOT LOGGED?
         'logged.specialsearch': {
             url: "/search/:text",
             views: {
@@ -42,6 +43,16 @@ angular.module('web')
                 "loggedview": {
                     dir: 'blueprint',
                     templateUrl: 'explore.html',
+                }
+            },
+        },
+    //////////////////////
+        'logged.submission': {
+            url: "/create",
+            views: {
+                "loggedview": {
+                    dir: 'blueprint',
+                    templateUrl: 'submit.html',
                 }
             },
         },

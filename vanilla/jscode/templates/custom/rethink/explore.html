@@ -8,20 +8,22 @@
     md-selected='exp.selectedTab'
     >
 
-    <md-tab label="Step list" md-on-select="exp.onTabSelected()">
+    <md-tab label="Missing images" md-on-select="exp.onTabSelected('imagefix')">
       <md-content class="md-padding">
-        <div ng-include="exp.blueprintTemplateDir + 'steplist.html'"></div>
+        <div ng-include="root.blueprintTemplateDir + 'fiximages.html'"></div>
       </md-content>
     </md-tab>
 
-    <md-tab label="Tree explorer" md-on-select="exp.onTabSelected()">
-        <div ng-include="exp.blueprintTemplateDir + 'tree.html'"></div>
+    <md-tab label="Step list" md-on-select="exp.onTabSelected()">
+      <md-content class="md-padding">
+        <div ng-include="root.blueprintTemplateDir + 'steplist.html'"></div>
+      </md-content>
     </md-tab>
 
     <md-tab label="Exposition" md-on-select="exp.onTabSelected()">
       <md-content class="md-padding">
 <!--
-        <div ng-include="exp.blueprintTemplateDir + 'exposition.html'" style="width: 600px;"></div>
+        <div ng-include="root.blueprintTemplateDir + 'exposition.html'" style="width: 600px;"></div>
 -->
         Work in progress
       </md-content>

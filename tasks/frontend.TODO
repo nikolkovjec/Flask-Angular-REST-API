@@ -1,44 +1,134 @@
 
 >  Welcome and goodbye. And thanks for all the fish!
 
+http://codeology.braintreepayments.com/pdonorio/restangulask
+
 # PRIVATE GIT
 git remote add private ssh://git@mygitlab.dev:10022/pdonorio/restangulask.git
+# GOOD API DESIGN
+should be profoundly discussed
 # UI ROUTER and params
 http://stackoverflow.com/a/25647714/2114395
+# HTML5 validator
+https://github.com/svenkreiss/html5validator
 
-updates:
- ☐ bower install jquery#~2.1.4 @tocheck
- ☐ update angular to 1.5 rc
- ☐ update rethinkdb image
 --- ✄ -----------------------
 
-FANCY:
+bugs & ideas:
+☐ materialize spy is probably broken in latest materialize? @toverifyagain
+☐ after login go to latest requested url
+  ☐ seek in history
+  ☐ if from welcome, go to simple 'app'
+☐ chips with bigger div to show results
+☐ table are not same size on details
+☐ extrait not complete list inside the details page
+☐ topbar menu for mobile
+☐ configurations
+http://rochacbruno.github.io/dynaconf/
+✔ Move tree controller/stuff @done (16-03-02 07:59)
+
+Images:
+  ✔ upload images @done (16-03-03 08:29)
+    ✔ API endpoint @done (16-02-09 08:21)
+    ✔ a dedicated dialog inside common js code @done (16-03-02 15:26)
+      ✔ angular library to upload: flow @done (16-03-03 08:29)
+  ☐ frontend
+    ✔ upload status @done (16-03-04 08:16)
+      ✔ progress @done (16-03-04 08:16)
+      ✔ failed @done (16-03-04 08:16)
+      ✔ completed @done (16-03-04 08:16)
+      ☐ icons
+    ✔ handle 'already exist' error @done (16-03-04 08:23)
+    ☐ switch from GET to chunked POST?
+    ☐ limit file size?
+  ☐ Backend: associate image
+    ✔ a card that appears only when pressing the add button @done (16-02-17 00:34)
+      ✔ From party: list of images (not associated) for each @done (16-02-22 10:59)
+        ✔ rethinkdb eqjoin @done (16-02-22 10:59)
+      ✔ move to browse from admin... @argh @done (16-03-01 19:08)
+    ☐ API
+      ✔ respond to flow @done (16-03-04 08:03)
+      ☐ saves info the same model i already have for datadocs....?
+      ☐ chunked flow POST method?
+        ☐ REST plugin to accept all parameters
+  ☐ Provide example in production
+  ☐ welcome parallax
+  ☐ welcome slider
+
+☐ image cache
+ https://github.com/jBenes/angular-imgcache.js/tree/master
+ ☐ nginx
+  http://charlesleifer.com/blog/nginx-a-caching-thumbnailing-reverse-proxying-image-server-/
+
+Configuration:
+  http://www.jvandemo.com/how-to-configure-your-angularjs-application-using-environment-variables/
+
+SUBMIT:
+ ☐ Steps are upside down
+  ✔ Guide the submission with breadcrumbs @done (16-02-16 15:14)
+  ☐ the document is a draft until the last step is completed (estratto)
+  ☐ draft is a separated rethinkdb resource, related to the user
+    ☐ automatically relate the user from the token to its drafts
+      ☐ how to get user from token inside the API?
+  ☐ transcriptions size inside db? or post/get method injection?
+  ☐ Submission skeleton with collapsible or collections
+  ☐ Submission steps
+  http://materializecss.com/collections.html
+ ☐ good example for transcription edit
+ https://material.angularjs.org/latest/demo/menuBar
+
+Common functionalities:
+  ☐ A list of required extra routes
+    ☐ check if they exist
+    ☐ if not create them with template "yet to implement"
+✔ json menu @done (16-02-08 10:40)
+    ☐ move welcome menu in there (main.controller)
+    ☐ remove intro_menu
+    ☐ remove WelcomeMenuController in common rootctrl
+☐ Register page
+
+Autocomplete:
+  ☐ elasticsearch
+      https://elasticsearch-py.readthedocs.org/en/master/index.html
+    ✔ docker server setup @done (16-02-07 01:41)
+      ✔ install python library, don't know which @done (16-02-07 01:41)
+      ☐ how to refresh indexes on startup?
+        ☐ flask before first request i would say
+    ☐ python insert in operations.py
+      ✔ think about a structure @done (16-02-07 11:08)
+      ☐ tests
+    ☐ API with GET
+      ☐  separate file for elastic?
+    ☐ Mix with Rethinkdb
+    https://www.rethinkdb.com/docs/elasticsearch/
+    https://github.com/rethinkdb/logstash-input-rethinkdb
+    https://hub.docker.com/_/logstash/
+    https://github.com/deviantony/docker-elk/blob/master/docker-compose.yml
+    ☐ OR my rethinkdb table change feed?
+
+User ranks:
+  ☐ get user info via REST /myself
+  ☐ do routig based on rank check?
+
+History:
+  ✔ clickable elements... @done (16-02-05 18:08)
+  ☐ a loader while timeout
+  ☐ A label to explain the route
+  ☐ Could add timestamp to each history element
+
+dynamic menu:
+  ☐ decided upon a json model
+    ☐ how to overide if existing?
+  ☐ just logout if none provided
+
+fancy:
   ☐ browser notifications
   https://github.com/sagiegurari/angular-web-notification
 
-WELCOME:
-  ✔ Make this angular page @done (16-01-26 08:24)
-    ✔ move it to internal angular routing @done (16-01-26 08:24)
-    ✔ xeditable material @done (16-02-01 01:04)
-  ✔ Admin page @done (16-02-02 18:22)
-  ✔ Welcome controller @done (16-01-30 14:12)
-  ✔ admin api @done (16-01-26 08:24)
-      ✔ sections: make the loader appear when updating data... @done (16-02-02 18:22)
-  ☐ Welcome
-    ✔ make it switchable @done (16-02-02 18:48)
-    ✔ ng-repeat @done (16-02-02 19:11)
-      ☐ more link if extra content available
-    ☐ if empty data, go with the base template
-  ☐ search form if a 'search' section?
-  ☐ Images
-      ☐ upload images... @ohboy
-        ☐ a dedicated button inside the dialog
-        ☐ a list of images
-        ☐ you show only the path
-          ☐ and maybe thumbnail
-      ☐ welcome parallax
-      ☐ image cache
-     https://github.com/jBenes/angular-imgcache.js/tree/master
+Updates:
+ ☐ bower install jquery#~2.1.4 @tocheck
+ ✔ update angular to 1.5 @done (16-02-09 19:49)
+ ☐ update my rethinkdb image?
 
 Admin page:
   ✔ Change toolbar color @done (16-01-25 16:03)
@@ -52,13 +142,6 @@ Admin page:
    ☐ ngWYSIWYG
    http://psergus.github.io/ngWYSIWYG/
 
-Autocomplete:
-  ☐ elasticsearch
-    ☐ docker server setup
-    ☐ python insert in operations.py
-      https://elasticsearch-py.readthedocs.org/en/master/index.html
-  ☐ rethinkdb table change feed
-
 New fixed search:
 ✔ onenter and onexit route extra @done (16-01-25 11:10)
 ✔ Tree back @done (16-01-25 12:42)
@@ -68,24 +151,6 @@ New fixed search:
 ☐ chips watch?
 ☐ lazy load of more than 10 results
 ☐ Application name inside the Toolbar should be a hand made font?
-
-History:
-☐ save old state
- ☐ json in cookies
- ☐ show a clickable div that change ui router state
-
-BUGS:
-✔ welcome spy padding? @done (16-01-26 15:11)
-✔ ui router checks in root controller need to be done on statechangesuccess... @done (16-01-26 09:40)
-☐ spy is probably broken in latest materialize? @toverifyagain
- ✔ does not work with jquery 2.2. Only 2.1 @done (16-02-01 14:59)
-
-☐ chips with bigger div to show results
-☐ table are not same size on details
-☐ extrait not complete list
-☐ mostra nella pagina di ricerca
-☐ mostra nella pagina di dettaglio
-☐ topbar menu for mobile
 
 SEARCH:
 ☐ Some times chips do not see change of text?
@@ -100,20 +165,6 @@ DETAILS:
     ☐ via python request and jinja template
  ☐ select language on transcription
  ☐ aggiungere lista dettagli (step 4) sotto lo scrollspy
-
-SUBMIT:
-  ☐ Guide the submission with breadcrumbs
-  http://materializecss.com/breadcrumbs.html
- ☐ Steps are upside down
- ☐ Go from the biggest step to the leaf, as a branch
-   ☐ breadcrumbs show the progress
-
-  ☐ transcriptions size inside db? or post/get method injection?
-  ☐ Submission skeleton with collapsible or collections
-  ☐ Submission steps
-  http://materializecss.com/collections.html
- ☐ good example for transcription edit
- https://material.angularjs.org/latest/demo/menuBar
 
 OTHER:
   ☐ one time binding
@@ -158,6 +209,8 @@ VOCABULARY:
         ☐ Excel load
         ☐ web site insert
       ☐ step list angular inline filter
+
+ https://github.com/graphql-python/graphene
 
 HTTPS:
   ☐ nginx proxy
@@ -387,3 +440,74 @@ COMPLETED:
           ✔ create DELETE api @done (16-02-02 07:59)
           ✔ define DELETE in scope @done (16-02-02 09:48)
           ✔ remove and close the dialog @done (16-02-02 09:48)
+  ✔ Make this angular page @done (16-01-26 08:24)
+    ✔ move it to internal angular routing @done (16-01-26 08:24)
+    ✔ xeditable material @done (16-02-01 01:04)
+  ✔ Admin page @done (16-02-02 18:22)
+  ✔ Welcome controller @done (16-01-30 14:12)
+  ✔ admin api @done (16-01-26 08:24)
+      ✔ sections: make the loader appear when updating data... @done (16-02-02 18:22)
+  ✔ Welcome static @done (16-02-03 19:28)
+    ✔ make it switchable @done (16-02-02 18:48)
+    ✔ ng-repeat @done (16-02-02 19:11)
+      ✔ more link if extra content available @done (16-02-03 11:06)
+        ✔ a viewer page @done (16-02-03 11:40)
+          ✔ sub route of welcome? @done (16-02-03 11:40)
+          ✔ overwrite parent view @done (16-02-03 14:25)
+          ✔ back button arrow @done (16-02-03 14:32)
+    ✔ slider draft @done (16-02-03 10:54)
+    ✔ if empty data, go with a failure message @done (16-02-03 19:11)
+  ✔ search form if a 'search' section? @done (16-02-03 19:26)
+  ✔ save old state @done (16-02-04 09:31)
+   ✔ a function to recover last state @done (16-02-04 09:50)
+     ✔ use it for every "go back" button @done (16-02-04 14:53)
+       ✔ e.g. search go back @done (16-02-04 14:53)
+         ✔ placeholder for no data searched yet @done (16-02-04 15:01)
+         ✔ search loader... @done (16-02-04 15:24)
+       ✔ also search exit key @done (16-02-04 15:07)
+   ✔ apply also parameters to going back to state! @ooops @done (16-02-04 16:00)
+   ✔ json in cookies or localstorage @done (16-02-04 15:42)
+     ✔ fix the lastRoute function inside common.globals @done (16-02-04 15:43)
+     ✔ skip a route to save if it's equal to the last one @done (16-02-05 08:10)
+       ✔ compare both state and params @done (16-02-05 08:10)
+   ✔ sidebar for navigation of the whole history? @notsodifficult @done (16-02-05 15:31)
+     ✔ md-sidebar official material @done (16-02-05 14:50)
+     ✔ ng-repeat history @done (16-02-05 15:02)
+       ✔ limit to latest 10 entries @done (16-02-05 15:15)
+       ✔ reverse? @done (16-02-05 15:31)
+     ✔ open with keyboard @done (16-02-05 15:16)
+       ✘ and button? @cancelled (16-02-05 15:18)
+  ✔ app link instead of login on welcome if logged @done (16-02-04 08:06)
+  ✔ section positions @done (16-02-08 00:57)
+      ✔ insert position inside the json model/rethinkdb @done (16-02-08 00:04)
+      ✔ after drop, update all sections one by one... @done (16-02-08 00:57)
+    ✔ drag and drop @done (16-02-07 23:29)
+      ✔ install @done (16-02-07 12:14)
+      ✔ test @done (16-02-07 23:29)
+    ✔ 'angular-sortable-view' @done (16-02-07 11:14)
+  Release in the ocean
+  ✔ parallax upload one and use it for all, for now @quickanddirty @done (16-02-08 01:32)
+    ✔ note: parallax does not work inside an md-content... @done (16-02-08 01:33)
+  ✔ update docker @done (16-02-09 09:16)
+    ✔ run @done (16-02-09 12:43)
+  ✔ apply latest backup @done (16-02-10 07:49)
+  ✔ copy images in the same host @done (16-02-10 07:50)
+  ✔ project name by hand @done (16-02-10 07:50)
+  ✔ username/password set by hand @done (16-02-10 07:50)
+✔ welcome spy padding? @done (16-01-26 15:11)
+✔ ui router checks in root controller need to be done on statechangesuccess... @done (16-01-26 09:40)
+✔ remove port from existing host in js @done (16-02-09 10:54)
+✔ Rdb connection is slow at startup, and API start before it's available @done (16-02-09 11:10)
+ ✔ make a cycle to check and sleep @done (16-02-09 11:10)
+ ✔ does not work with jquery 2.2. Only 2.1 @done (16-02-01 14:59)
+✘ HISTORY is broken?? @cancelled (16-02-10 07:59)
+✔ Fix all template inside the scope, use just root.templateSomething @done (16-02-10 08:06)
+✔ History broken for other services @done (16-02-11 11:00)
+   ✔ Split hotkeys service in two pieces: @done (16-02-11 08:17)
+    ✔ common @done (16-02-11 08:17)
+    ✔ custom @done (16-02-11 08:17)
+      ✔ fix the typo @done (16-02-11 08:10)
+    ✘ Search problem? @cancelled (16-02-11 11:00)
+✔ Welcome broken for other services @done (16-02-11 11:00)
+ ✔ More button does not work @done (16-02-11 11:00)
+ ✔ repeat html is not inside the common part @done (16-02-11 11:00)

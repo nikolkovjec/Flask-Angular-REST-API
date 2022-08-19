@@ -1,7 +1,8 @@
 (function() {
   'use strict';
 
-angular.module('web').config(config);
+angular.module('web')
+    .config(routeConfig);
 
 /////////////////////////////////
 // ROUTES AND AUTHENTICATION
@@ -15,10 +16,8 @@ function _redirectIfNotAuthenticated($state, $auth, $timeout, $log, api)
     var checkLogged = true;
     return api.verify(checkLogged).then(function(response){
       // Token is available and API confirm that is good
-      if ($auth.isAuthenticated()) {
-        if (response) {
-            return true;
-        }
+      if (response && $auth.isAuthenticated()) {
+        return true;
       }
       var state = 'login';
       // API not reachable
@@ -65,7 +64,7 @@ function _skipAuthenticationCheckApiOnline($state, $timeout, $auth, api)
 /*********************************
 * ROUTING
 *********************************/
-function config($stateProvider, $urlRouterProvider, $authProvider, $logProvider, $locationProvider, $httpProvider, $injector)
+function routeConfig($stateProvider, $urlRouterProvider, $authProvider, $logProvider, $locationProvider, $httpProvider, $injector)
 {
 
 // ROUTER CONFIGURATION
@@ -95,7 +94,8 @@ function config($stateProvider, $urlRouterProvider, $authProvider, $logProvider,
 
     // Faster http requests?
     //http://stackoverflow.com/a/29126922/2114395
-    $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
+    $httpProvider.defaults.headers.common["X-Requested-With"]
+        = 'XMLHttpRequest';
 
 ////////////////////////////
 // WHERE THE MAGIC HAPPENS
@@ -146,10 +146,22 @@ $stateProvider
             "menu": {
                 templateUrl: templateDir + 'intro_menu.html',
             },
+            "sidebar": {
+                templateUrl: templateDir + 'history_sidenav.html',
+            },
             "main": {
                 templateUrl: templateDir + 'intro.html',
             }
         }
+    })
+
+    .state("welcome.more", {
+        url: "/info/:section",
+        views: {
+            "main@": {
+                templateUrl: templateDir + 'section_info.html',
+            }
+        },
     })
 
 // If i see API are not available
@@ -183,6 +195,9 @@ $stateProvider
             "menu": {
                 templateUrl: templateDir + 'menu.html',
                 //controller: 'AppRootController',
+            },
+            "sidebar": {
+                templateUrl: templateDir + 'history_sidenav.html',
             },
             "main": {
         // and add a child view called 'loggedview' for logged pages

@@ -21,7 +21,6 @@ model = 'datavalues'
 mylabel, mytemplate, myschema = schema_and_tables(model)
 
 
-@deck.enable_endpoint_identifier('data_key')
 class RethinkDataValues(BaseRethinkResource):
     """ Data values """
 
@@ -124,7 +123,6 @@ model = 'datakeys'
 mylabel, mytemplate, myschema = schema_and_tables(model)
 
 
-@deck.enable_endpoint_identifier('step')
 class RethinkDataKeys(BaseRethinkResource):
     """ Data keys administrable """
 
@@ -152,10 +150,6 @@ class RethinkDocuments(BaseRethinkResource):
     template = mytemplate
     table = mylabel
     table_index = 'record'
-
-    def __init__(self):
-        self.set_method_id('data_key')
-        super(RethinkDocuments, self).__init__()
 
     def get_all_notes(self, q):
         return q.concat_map(
@@ -215,7 +209,6 @@ model = 'datadmins'
 mylabel, mytemplate, myschema = schema_and_tables(model)
 
 
-@deck.enable_endpoint_identifier('id')
 class RethinkDataForAdministrators(BaseRethinkResource):
     """ Data admins """
 
@@ -224,8 +217,8 @@ class RethinkDataForAdministrators(BaseRethinkResource):
     table = mylabel
 
     @deck.apimethod
-    @auth_token_required
-    @roles_required(config.ROLE_ADMIN)
+    # @auth_token_required
+    # @roles_required(config.ROLE_ADMIN)
     def get(self, id=None):
         count, data = super().get(id)
         return self.response(data, elements=count)
@@ -247,3 +240,65 @@ class RethinkDataForAdministrators(BaseRethinkResource):
     @roles_required(config.ROLE_ADMIN)
     def delete(self, id):
         return super().delete(id)
+
+
+class RethinkImagesAssociations(BaseRethinkResource):
+    """
+    Fixing problems in images associations?
+    """
+
+    @deck.apimethod
+    @auth_token_required
+    def get(self, id=None):
+
+        # Get the record value and the party name associated
+        first = self.get_query().table('datavalues') \
+            .concat_map(lambda doc: doc['steps'].concat_map(
+                    lambda step: step['data'].concat_map(
+                        lambda data: [{
+                            'record': doc['record'], 'step': step['step'],
+                            'pos': data['position'], 'party': data['value'],
+                        }])
+                )) \
+            .filter({'step': 3, 'pos': 1}) \
+            .pluck('record', 'party') \
+            .group('party')['record'] \
+
+        records_with_docs = list(
+            self.get_query().table('datadocs')['record'].run())
+
+        final = {}
+        from operator import itemgetter
+
+        for party, records in first.run().items():
+            elements = set(records) - set(records_with_docs)
+            if len(elements) > 0:
+                # Remove the records containing the images
+                ids = list(set(records) - set(records_with_docs))
+                cursor = self.get_query().table('datavalues') \
+                    .filter(lambda doc: r.expr(ids).contains(doc['record'])) \
+                    .run()
+                newrecord = []
+                for obj in cursor:
+                    val = obj['steps'][0]['data'][0]['value']
+                    tmp = val.split('_')
+                    sort = tmp[len(tmp)-1]
+                    try:
+                        sortme = int(sort)
+                    except:
+                        sortme = -1
+                    newrecord.append({
+                        'sortme': sortme,
+                        'value': val,
+                        'record': obj['record']
+                    })
+                final[party] = sorted(newrecord, key=itemgetter('sortme'))
+                # final[party] = list(cursor)
+        return self.response(final)
+
+        # # Join the records with the uploaded files
+        # second = first.eq_join(
+        #     "record", r.table('datadocs'), index="record").zip()
+        # # Group everything by party name
+        # cursor = second.group('party').run(time_format="raw")
+        # return self.response(cursor)

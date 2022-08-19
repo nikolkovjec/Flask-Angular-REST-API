@@ -66,10 +66,12 @@
 	    //"angular-loading-bar/build/loading-bar.min.js",
 	    "angular-lazy-img/release/angular-lazy-img.min.js",
 	    "angular-tree-control/angular-tree-control.js",
+        "ng-flow/dist/ng-flow-standalone.min.js",
 	// JWT ?
 		//
 	// libs on demand
 		"angular-hotkeys/build/hotkeys.min.js",
+        "angular-sortable-view/src/angular-sortable-view.min.js",
 		"api-check/dist/api-check.min.js",
 		"angular-formly/dist/formly.min.js",
 		"angular-formly-material/dist/formly-material.min.js",
@@ -82,6 +84,6 @@
 	    "app/app.js"
 	],
 	"imgs": [
-		//
+		// if any necessary
 	]
 }
